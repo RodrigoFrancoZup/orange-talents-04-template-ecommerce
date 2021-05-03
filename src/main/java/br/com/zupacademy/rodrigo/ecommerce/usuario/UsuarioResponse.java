@@ -1,12 +1,13 @@
 package br.com.zupacademy.rodrigo.ecommerce.usuario;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UsuarioResponse {
 
     private Long id;
     private String login;
-    private LocalDate instanteCriacao;
+    private LocalDateTime instanteCriacao;
 
     public UsuarioResponse(Usuario usuario) {
         this.id = usuario.getId();
@@ -22,7 +23,7 @@ public class UsuarioResponse {
         return login;
     }
 
-    public LocalDate getInstanteCriacao() {
+    public LocalDateTime getInstanteCriacao() {
         return instanteCriacao;
     }
 }

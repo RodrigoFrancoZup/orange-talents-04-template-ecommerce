@@ -1,6 +1,7 @@
 package br.com.zupacademy.rodrigo.ecommerce.usuario;
 
 
+import br.com.zupacademy.rodrigo.ecommerce.annotation.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ public class UsuarioRequest {
 
     @NotBlank
     @Email
+    @UniqueValue(domainClass = Usuario.class, fieldName = "login")
     private String login;
 
     @NotBlank

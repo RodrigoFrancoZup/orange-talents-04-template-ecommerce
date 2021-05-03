@@ -1,15 +1,13 @@
 package br.com.zupacademy.rodrigo.ecommerce.usuario;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import java.time.LocalDate;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -22,7 +20,8 @@ public class Usuario {
     private String senha;
 
     @NotNull
-    private LocalDate instanteCriacao = LocalDate.now();
+    @PastOrPresent
+    private LocalDateTime instanteCriacao = LocalDateTime.now();
 
     public Usuario(String login, String senha) {
         this.login = login;
@@ -42,15 +41,14 @@ public class Usuario {
         return login;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getSenha() { return senha;
     }
 
     public void criptografaSenha(){
         this.senha = new BCryptPasswordEncoder().encode(this.senha);
     }
 
-    public LocalDate getInstanteCriacao() {
+    public LocalDateTime getInstanteCriacao() {
         return instanteCriacao;
     }
 }
