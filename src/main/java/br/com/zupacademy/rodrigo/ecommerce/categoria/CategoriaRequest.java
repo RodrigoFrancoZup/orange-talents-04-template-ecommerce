@@ -1,5 +1,6 @@
 package br.com.zupacademy.rodrigo.ecommerce.categoria;
 
+import br.com.zupacademy.rodrigo.ecommerce.annotation.ExistsId;
 import br.com.zupacademy.rodrigo.ecommerce.annotation.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,8 @@ public class CategoriaRequest {
     @NotBlank
     @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
+
+    @ExistsId(domainClass = Categoria.class, fieldName = "id")
     private Long idCategoriaMae;
 
     public CategoriaRequest(String nome, Long idCategoriaMae) {
