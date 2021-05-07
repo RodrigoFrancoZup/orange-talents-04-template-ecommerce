@@ -2,6 +2,7 @@ package br.com.zupacademy.rodrigo.ecommerce.annotation;
 
 import org.springframework.util.Assert;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -9,12 +10,12 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long> {
+public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> {
 
-    private String domainAttribute;
-    private Class<?> klass;
     @PersistenceContext
     private EntityManager manager;
+    private String domainAttribute;
+    private Class<?> klass;
 
     @Override
     public void initialize(ExistsId params) {
@@ -22,16 +23,11 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long> {
         klass = params.domainClass();
     }
 
-
     @Override
-    public boolean isValid(Long value, ConstraintValidatorContext context) {
-        Query query = manager.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute + "=:value");
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        Query query = manager.createQuery("SELECT 1 FROM "+klass.getName()+" WHERE "+ domainAttribute+"=:value");
         query.setParameter("value", value);
-
-
         List<?> list = query.getResultList();
-        Assert.isTrue(list.size() <= 1, "aconteceu algo bizarro e você tem mais de um " + klass + " com o atributo " + domainAttribute + " com o valor = " + value);
-
         return !list.isEmpty();
     }
 }
