@@ -7,6 +7,7 @@ import br.com.zupacademy.rodrigo.ecommerce.categoria.Categoria;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.CategoriaRepository;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class ProdutoRequest {
     private Integer quantidade;
 
     @Size(min = 3)
+    @Valid
     private List<CaracteristicaRequest> caracteristicas;
 
     @Length(max = 1000)
@@ -49,5 +51,9 @@ public class ProdutoRequest {
     public Produto converteProdutoRequestParaProduto(CategoriaRepository categoriaRepository) {
         Categoria categoria = categoriaRepository.findById(this.idCategoria).get();
         return new Produto(this.nome, this.valor, this.quantidade, this.descricao, categoria, this.caracteristicas);
+    }
+
+    public List<CaracteristicaRequest> getCaracteristicas() {
+        return caracteristicas;
     }
 }

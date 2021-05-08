@@ -1,11 +1,17 @@
 package br.com.zupacademy.rodrigo.ecommerce.caracteristica;
 
+import br.com.zupacademy.rodrigo.ecommerce.annotation.UniqueValue;
 import br.com.zupacademy.rodrigo.ecommerce.produto.Produto;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CaracteristicaRequest {
-
+ /*
+    Essa validação n aplica-se em nosso cenário,
+    seria para a tabela toda! Foi só um teste para ver o @valid funcionando em cima de um List<>
+    @UniqueValue(domainClass = Caracteristica.class, fieldName = "nome")
+ */
     private String nome;
     private String descricao;
 
@@ -26,4 +32,13 @@ public class CaracteristicaRequest {
         }
         return caracteristicas;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
 }

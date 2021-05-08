@@ -41,4 +41,6 @@ public class Caracteristica {
     public Produto getProduto() {
         return produto;
     }
+
+
 }
