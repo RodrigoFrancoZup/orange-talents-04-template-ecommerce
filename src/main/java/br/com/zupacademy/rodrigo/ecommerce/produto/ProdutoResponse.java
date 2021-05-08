@@ -1,14 +1,13 @@
 package br.com.zupacademy.rodrigo.ecommerce.produto;
 
-import br.com.zupacademy.rodrigo.ecommerce.caracteristica.Caracteristica;
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaResponse;
-import br.com.zupacademy.rodrigo.ecommerce.categoria.Categoria;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.CategoriaResponse;
-import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
+import br.com.zupacademy.rodrigo.ecommerce.imagem.Imagem;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoResponse {
@@ -22,6 +21,7 @@ public class ProdutoResponse {
     private CategoriaResponse categoria;
     private LocalDateTime instanteCriacao;
     private UsuarioResponse usuario;
+    private List<String> linksImagens = new ArrayList<>();
 
     public ProdutoResponse(Produto produto) {
         this.id = produto.getId();
@@ -33,6 +33,9 @@ public class ProdutoResponse {
         this.instanteCriacao = produto.getInstanteCriacao();
         this.usuario = new UsuarioResponse(produto.getUsuario());
         this.categoria = new CategoriaResponse(produto.getCategoria());
+        for(Imagem imagem :produto.getImagens()){
+            this.linksImagens.add(imagem.getLink());
+        }
     }
 
     public Long getId() {
@@ -69,5 +72,9 @@ public class ProdutoResponse {
 
     public UsuarioResponse getUsuario() {
         return usuario;
+    }
+
+    public List<String> getLinksImagens() {
+        return linksImagens;
     }
 }

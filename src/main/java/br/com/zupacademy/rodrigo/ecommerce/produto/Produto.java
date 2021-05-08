@@ -1,18 +1,18 @@
 package br.com.zupacademy.rodrigo.ecommerce.produto;
 
-import br.com.zupacademy.rodrigo.ecommerce.annotation.ExistsId;
+
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.Caracteristica;
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaRequest;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.Categoria;
+import br.com.zupacademy.rodrigo.ecommerce.imagem.Imagem;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Produto {
@@ -35,6 +35,9 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+    private Set<Imagem> imagens = new HashSet<>();
+
     public Produto(String nome, BigDecimal valor, Integer quantidade, String descricao, Categoria categoria, List<CaracteristicaRequest> caracteristicasRequest) {
         this.nome = nome;
         this.valor = valor;
@@ -47,6 +50,15 @@ public class Produto {
 
     @Deprecated
     public Produto() {
+
+    }
+
+    //Vinculo de produto com imagem e vice-versa!
+    public void adicionaImagem(Set<String> links) {
+        for(String aux : links){
+          Imagem imagem = new Imagem(aux, this);
+          this.imagens.add(imagem);
+        }
     }
 
     public void setUsuario(Usuario usuario) {
@@ -87,5 +99,9 @@ public class Produto {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public Set<Imagem> getImagens() {
+        return imagens;
     }
 }
