@@ -17,6 +17,21 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+
+    /*
+    Chamada para o validador genérico!
+    UsuarioRepository precisará ter o método   boolean existsByLogin(String login);
+
+       @InitBinder
+    public void validacao(WebDataBinder binder) {
+        CampoUnicoComSpring<UsuarioRequest, String> validadorEmailUnico =
+                new CampoUnicoComSpring<>("login", UsuarioRequest.class,
+                usuarioRepository::existsByEmail);
+
+        binder.addValidators(validadorEmailUnico);
+    }
+     */
+
     @PostMapping
     @Transactional
     public ResponseEntity<UsuarioResponse> cadastra(@RequestBody @Valid UsuarioRequest usuarioRequest) {
