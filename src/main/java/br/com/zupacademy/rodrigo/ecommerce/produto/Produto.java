@@ -2,6 +2,7 @@ package br.com.zupacademy.rodrigo.ecommerce.produto;
 
 import br.com.zupacademy.rodrigo.ecommerce.annotation.ExistsId;
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.Caracteristica;
+import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaRequest;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.Categoria;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
@@ -34,13 +35,14 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
-    public Produto(String nome, BigDecimal valor, Integer quantidade, List<Caracteristica> caracteristicas, String descricao, Categoria categoria) {
+    public Produto(String nome, BigDecimal valor, Integer quantidade, String descricao, Categoria categoria, List<CaracteristicaRequest> caracteristicasRequest) {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
         this.caracteristicas = caracteristicas;
         this.descricao = descricao;
         this.categoria = categoria;
+        this.caracteristicas = CaracteristicaRequest.converteCaracteristicaRequestParaCaracteristica(caracteristicasRequest, this);
     }
 
     @Deprecated

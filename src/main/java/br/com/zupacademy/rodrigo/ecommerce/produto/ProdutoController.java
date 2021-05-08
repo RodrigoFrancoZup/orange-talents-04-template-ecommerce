@@ -1,22 +1,20 @@
 package br.com.zupacademy.rodrigo.ecommerce.produto;
 
-import br.com.zupacademy.rodrigo.ecommerce.caracteristica.Caracteristica;
+
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaRepository;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.CategoriaRepository;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/produto")
@@ -37,25 +35,13 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProdutoResponse> cadastra(@RequestBody @Valid ProdutoRequest produtoRequest) {
-        Authentication authentication = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-        String login = authentication.getName();
-        Usuario usuario = usuarioRepository.findByLogin(login).get();
+    public ResponseEntity<ProdutoResponse> cadastra(@RequestBody @Valid ProdutoRequest produtoRequest, @AuthenticationPrincipal Usuario usuario) {
 
         Produto produto = produtoRequest.converteProdutoRequestParaProduto(categoriaRepository);
         produto.setUsuario(usuario);
-        for(Caracteristica caracteristica : produto.getCaracteristicas()){
-            caracteristica.setProduto(produto);
-        }
 
-        Produto produtoSalvo = produtoRepository.save(produto);
+        produtoRepository.save(produto);
 
-        /*
-        for(Caracteristica aux : produto.getCaracteristicas()){
-            aux.setProduto(produtoSalvo);
-            caracteristicaRepository.save(aux);
-        }
-        */
         return ResponseEntity.ok(new ProdutoResponse(produto));
 
     }

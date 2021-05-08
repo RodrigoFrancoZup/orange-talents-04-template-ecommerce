@@ -48,7 +48,6 @@ public class ProdutoRequest {
 
     public Produto converteProdutoRequestParaProduto(CategoriaRepository categoriaRepository) {
         Categoria categoria = categoriaRepository.findById(this.idCategoria).get();
-        List<Caracteristica> caracteristicas = CaracteristicaRequest.converteCaracteristicaRequestParaCaracteristica(this.caracteristicas);
-        return new Produto(this.nome, this.valor, this.quantidade, caracteristicas, this.descricao, categoria);
+        return new Produto(this.nome, this.valor, this.quantidade, this.descricao, categoria, this.caracteristicas);
     }
 }
