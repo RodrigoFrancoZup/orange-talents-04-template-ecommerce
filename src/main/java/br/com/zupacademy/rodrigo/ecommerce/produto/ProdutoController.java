@@ -4,6 +4,10 @@ package br.com.zupacademy.rodrigo.ecommerce.produto;
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaRepository;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.CategoriaRepository;
 import br.com.zupacademy.rodrigo.ecommerce.imagem.ImagemRequest;
+import br.com.zupacademy.rodrigo.ecommerce.opiniao.Opiniao;
+import br.com.zupacademy.rodrigo.ecommerce.opiniao.OpiniaoRepository;
+import br.com.zupacademy.rodrigo.ecommerce.pergunta.Pergunta;
+import br.com.zupacademy.rodrigo.ecommerce.pergunta.PerguntaRepository;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,12 @@ public class ProdutoController {
     @Autowired
     private UploaderFake uploaderFake;
 
+    @Autowired
+    private OpiniaoRepository opiniaoRepository;
+
+    @Autowired
+    private PerguntaRepository perguntaRepository;
+
 
     @PostMapping
     @Transactional
@@ -55,7 +65,7 @@ public class ProdutoController {
     public ResponseEntity<ProdutoResponse> adicionaImagem(@Valid ImagemRequest imagemRequest, @PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
         Produto produto = produtoRepository.findById(id).get();
 
-        if(!produto.getUsuario().equals(usuario)){
+        if (!produto.getUsuario().equals(usuario)) {
             return ResponseEntity.badRequest().build();
         }
         /* 1)Enviar imagem para o seu local (S3 por exemplo),
@@ -70,5 +80,14 @@ public class ProdutoController {
         produto.adicionaImagem(links);
 
         return ResponseEntity.ok(new ProdutoResponse(produto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoDetalheResponse> detalhe(@PathVariable Long id) {
+        Produto produto = produtoRepository.findById(id).get();
+        List<Opiniao> opinioes = opiniaoRepository.findByProdutoId(id);
+        List<Pergunta> perguntas = perguntaRepository.findByProdutoId(id);
+        ProdutoDetalheResponse produtoDetalheResponse = new ProdutoDetalheResponse(produto, opinioes, perguntas);
+        return ResponseEntity.ok(produtoDetalheResponse);
     }
 }

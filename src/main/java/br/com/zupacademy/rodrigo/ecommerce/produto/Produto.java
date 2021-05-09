@@ -42,7 +42,6 @@ public class Produto {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
-        this.caracteristicas = caracteristicas;
         this.descricao = descricao;
         this.categoria = categoria;
         this.caracteristicas = CaracteristicaRequest.converteCaracteristicaRequestParaCaracteristica(caracteristicasRequest, this);

@@ -1,6 +1,8 @@
 package br.com.zupacademy.rodrigo.ecommerce.produto;
 
 import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaResponse;
+
+
 import br.com.zupacademy.rodrigo.ecommerce.categoria.CategoriaResponse;
 import br.com.zupacademy.rodrigo.ecommerce.imagem.Imagem;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioResponse;
@@ -33,7 +35,7 @@ public class ProdutoResponse {
         this.instanteCriacao = produto.getInstanteCriacao();
         this.usuario = new UsuarioResponse(produto.getUsuario());
         this.categoria = new CategoriaResponse(produto.getCategoria());
-        for(Imagem imagem :produto.getImagens()){
+        for(Imagem imagem : produto.getImagens()){
             this.linksImagens.add(imagem.getLink());
         }
     }

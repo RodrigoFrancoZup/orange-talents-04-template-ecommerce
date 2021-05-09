@@ -3,9 +3,11 @@ package br.com.zupacademy.rodrigo.ecommerce.pergunta;
 
 import br.com.zupacademy.rodrigo.ecommerce.produto.ProdutoResponse;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioResponse;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"produto"})
 public class PerguntaResponse {
 
     private Long id;

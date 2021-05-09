@@ -3,8 +3,10 @@ package br.com.zupacademy.rodrigo.ecommerce.opiniao;
 
 import br.com.zupacademy.rodrigo.ecommerce.produto.ProdutoResponse;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.UsuarioResponse;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
+@JsonIgnoreProperties({"produto"})
 public class OpiniaoResponse {
 
     private Long id;
