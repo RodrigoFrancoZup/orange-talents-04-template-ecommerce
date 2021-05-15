@@ -14,7 +14,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,20 +40,22 @@ public class CompraController {
     }
 
     @PostMapping
-    public ResponseEntity<?> compra(@RequestBody @Valid CompraRequest compraRequest, @AuthenticationPrincipal Usuario usuario) throws URISyntaxException {
+    public ResponseEntity<?> compra(@RequestBody @Valid CompraRequest compraRequest, @AuthenticationPrincipal Usuario usuario, UriComponentsBuilder uriBuilder) {
 
         Produto produto = produtoRepository.findById(compraRequest.getIdProduto()).get();
         Boolean estoqueAbatido = produto.reduzEstoque(compraRequest.getQuantidade());
+        //Não precisamos dar save no produto para refuzir o estoque.
+        // Lembre-se ao dar um findById o objeto Produto está Managed! Gerenciado pelo Hibernate!
 
         if (estoqueAbatido) {
             Compra compra = compraRequest.converteCompraRequestParaCompra(produto, usuario);
+
             compraRepository.save(compra);
 
-            URI uri = new URI(compra.getFormaDePagamento().direcionaParaGateway());
+            System.out.println("Enviando e-mail para o vendedor: " + compra.getUsuario().getUsername());
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(uri);
-            return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+            String url = compra.getFormaDePagamento().direcionaParaGateway(uriBuilder, compra);
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).body(url);
         }
 
         return ResponseEntity.badRequest().body("Estoque insuficiente!");
