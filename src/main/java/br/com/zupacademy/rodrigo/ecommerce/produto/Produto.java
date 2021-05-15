@@ -6,6 +6,7 @@ import br.com.zupacademy.rodrigo.ecommerce.caracteristica.CaracteristicaRequest;
 import br.com.zupacademy.rodrigo.ecommerce.categoria.Categoria;
 import br.com.zupacademy.rodrigo.ecommerce.imagem.Imagem;
 import br.com.zupacademy.rodrigo.ecommerce.usuario.Usuario;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -54,9 +55,9 @@ public class Produto {
 
     //Vinculo de produto com imagem e vice-versa!
     public void adicionaImagem(Set<String> links) {
-        for(String aux : links){
-          Imagem imagem = new Imagem(aux, this);
-          this.imagens.add(imagem);
+        for (String aux : links) {
+            Imagem imagem = new Imagem(aux, this);
+            this.imagens.add(imagem);
         }
     }
 
@@ -102,5 +103,13 @@ public class Produto {
 
     public Set<Imagem> getImagens() {
         return imagens;
+    }
+
+    public Boolean reduzEstoque(Integer quantidadeVendida) {
+        if (this.quantidade >= quantidadeVendida) {
+            this.quantidade -= quantidadeVendida;
+            return true;
+        }
+        return false;
     }
 }
