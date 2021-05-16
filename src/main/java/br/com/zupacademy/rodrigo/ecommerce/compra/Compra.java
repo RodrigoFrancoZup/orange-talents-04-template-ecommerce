@@ -66,4 +66,8 @@ public class Compra {
     public FormaDePagamento getFormaDePagamento() {
         return formaDePagamento;
     }
+
+    public void setStatus(StatusCompra status) {
+        this.status = status;
+    }
 }
