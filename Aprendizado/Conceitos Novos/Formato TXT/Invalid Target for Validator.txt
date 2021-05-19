@@ -1,0 +1,16 @@
+⦁	Esse erro ocorre caso tenhamos criado na classe Controller o método Init com anotação @InitBinder e em algum método de controller estivermos recebendo um atributo diferente do que está configurado dentro da classe Validator;
+
+⦁	Exemplo, na classe ProibeEmailDuplicadoAutorValidator no método supports falamos que queremos receber nos controllers o AutorForm, o método que diz isso é:
+	@Override 
+	public boolean supports(Class<?> clazz) {
+	 return AutorForm.class.isAssignableFrom(clazz); 
+	}
+	
+	Caso algume método do AutorController receba um parâmetro diferente de 	AutorForm esse erro ocrrerá;
+
+⦁	Para corrigir isso, basta configurar o método init @InitBinder para ser usado somente nos metodos que AutorForm, caso contrário pode ingnorar. Para fazer isso basta passar o parâmetro "value" para @InitBinder (fica na classe controller), ficando assim:
+
+	@InitBinder (value = AutorForm)
+	public void init(WebDataBinder binder){ 
+	binder.addValidators(proibeEmailDuplicadoAutorValidator); 
+	}

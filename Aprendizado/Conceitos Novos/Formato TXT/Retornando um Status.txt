@@ -1,0 +1,2 @@
+⦁	No método compra da classe CompraController fiz esse retorno:
+return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).body(url);

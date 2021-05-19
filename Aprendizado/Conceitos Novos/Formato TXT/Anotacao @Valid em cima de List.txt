@@ -1,0 +1,8 @@
+
+⦁	Se eu tenho um lista de objetos, e esse objetos estão anotados com Bean Validation eu posso colocar um @Valid em cima  do atributo List<>, assim todos os itens da lista será validado;
+
+⦁	Isso foi utilizado no cadastro de produto, pois o mesmo tem uma List<CaracteristicasRquest>, e CaracteristicaRequest tem anotações do Bean Validation, logo na classe ProdutoRequest no seu atributo de List<> podemos por o @Valid;
+
+⦁	Foi preciso criar o método get() do atributo List<> que recebeu @Valid. (No casso o método get() foi gerado na classe ProdutoRequest, pois é nela que temos o atributo @Valis List<CaracteristicaRequest>;
+
+⦁	Foi preciso criar o método get() do item que estava na @List<>, no caso a lista era de CaracteristicaRequest, e o atributo nome de CaracteristicaRequest era validado com Bean Validation, logo criamos o método get() para o atributo nome.

@@ -1,0 +1,46 @@
+Estava usando o Init Binder para criar validações para um Objeto específico, ou seja, usava o Repository desse Objeto, mas é possível criar um Init Binder Genérico. Será um código mais avançado.
+
+⦁	O exemplo será validar se o e-mail de um autor é unico (no meu git estará sendo usuado em usuario):
+⦁	Primeiro criamos a classe da validação generica (os imports são do Spring):
+
+public class CampoUnicoComSpring<T, P> implements Validator { 
+private String campo; 
+private Class<? extends T> classeParaSerValidada;
+ private Function<P, Boolean> metodoQueVaiNoBanco; 
+@Override public void validate(Object o, Errors errors) { 
+//O que precisamos fazer?
+ // Ir no banco de dados verifica se o objeto existe -> Repository 
+// de um método retorna boolean
+
+ try { Field declaredField = classeParaSerValidada.getDeclaredField(this.campo); 
+declaredField.setAccessible(true); 
+Object valorASerPesquisado = declaredField.get(o);
+Boolean existeNoBanco = metodoQueVaiNoBanco.apply((P) valorASerPesquisado); 
+
+if(existeNoBanco) { 
+errors.rejectValue(campo, "campoUnico", "O campo deve ser unico no banco"); 
+}
+ } catch (IllegalAccessException | NoSuchFieldException e) { 
+e.printStackTrace(); 
+}
+ } 
+
+public CampoUnicoComSpring(String campo, Class<? extends T> classeParaSerValidada, Function<P, Boolean> metodoQueVaiNoBanco) { 
+this.campo = campo; 
+this.classeParaSerValidada = classeParaSerValidada;
+this.metodoQueVaiNoBanco = metodoQueVaiNoBanco;
+ } 
+
+@Override public boolean supports(Class<?> aClass) {
+ return this.classeParaSerValidada.isAssignableFrom(aClass); }
+ }
+
+⦁	Depois na classe controller que quisermos usar, devemos colocar o código:
+
+@InitBinder 
+public void validacao(WebDataBinder binder) { 
+CampoUnicoComSpring<AutorRequest, String> validadorEmailUnico = new CampoUnicoComSpring<>("email", AutorRequest.class, autorRepository::existsByEmail); 
+binder.addValidators(validadorEmailUnico);
+ }
+
+⦁	O repositorio do objeto validado precisará do método existsByEmail(String email)

@@ -1,0 +1,3 @@
+⦁	No cadastro de Produto, tinhamos que cadastrar ao mesmo tempo uma Coleção de Caracteristicas (elas ainda não existiam). Só que uma Caracteristica também precisa do cadastro de Produto (Bidirecional). A solução foi o construtor do Produto receber uma lista de CaracteristicasDto, pois depois de criar o Produto (Converter ProdutoDto em Produto) é possivel transformar (CaracteristicaDto em Caracteristica, pois ja temos Produto);
+
+⦁	No atributo List<Caracteristica> na classe Produto, usamos o @OneToMany(cascade = CascadeType.PERSIST). Assim podemos salvar ao mesmo tempo os dois objetos.

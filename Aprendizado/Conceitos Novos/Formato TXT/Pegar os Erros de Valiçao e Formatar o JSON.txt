@@ -1,0 +1,28 @@
+Pegar os Erros de Valiçao e Formatar o JSON com Controller Advice (Exception Handler)
+
+⦁	Criei o pacote chamado exception e nele coloquei duas classes;
+
+⦁	A primeira é uma classe DTO, será a mensagem informando os erros ao cliente (chegará ao cliente no formato JSON) - chamei esse classe de ValidationErrorDto. Ela deve ter dois atributos: private String campo; private String erro. Criar os metodos getters(), e o construtor com esses parâmetros.
+
+⦁	Criei a classe ValidationErrorHandler,esse classe deve ser anotada com @RestControllerAdvice e ter o atributo MessageSource messageSource anotado com @Autowired, esse atributo vai conseguir traduzir a mensagem para o idioma do cliente;
+
+⦁	Na classe ValidationErrorHandler criei o metodo:
+@ResponseStatus(code = HttpStatus.BAD_REQUEST) @ExceptionHandler({MethodArgumentNotValidException.class}) public List<ValidationErrorDto> handle(MethodArgumentNotValidException exception)
+
+A primeira anotação é para continuar voltando o BAD_REQUEST para o cliente, pois com esse tratamento o Spring pensa que o Error foi corrigido. 
+A segunda anotação é para esse método pegar TODAS as Exceptions do tipo MethodArgumentNotValidException, ou filhas dessa.
+Depois para cada erro da excpetion vou criar um dto, colocar na lista de dto's e devolver. Método ficará assim:
+
+@ResponseStatus(code = HttpStatus.BAD_REQUEST) 
+@ExceptionHandler({MethodArgumentNotValidException.class}) 
+public List<ValidationErrorDto> handle(MethodArgumentNotValidException exception) { 
+List<ValidationErrorDto> dto = new ArrayList<>();
+ List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors(); 
+fieldErrors.forEach(e -> {
+String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale()); 
+ValidationErrorDto erro = new ValidationErrorDto(e.getField(), mensagem); 
+dto.add(erro); 
+}); 
+return dto; 
+}
+

@@ -1,0 +1,21 @@
+⦁	A maneira mais simples de se pegar o usuário logado é no parâmetro do método da classe controller anotarmos o objeto Usuário (O que implementa UserDetails) com @AuthenticationPrincipal Usuario usuario;
+
+⦁	O método para pegar o usuário logado e colocar em produto ficou assim:
+	
+	@PostMapping 
+	@Transactional
+	 public ResponseEntity<ProdutoResponse> cadastra(@RequestBody @Valid 	ProdutoRequest produtoRequest, @AuthenticationPrincipal Usuario usuario) { 
+	Produto produto = 
+	produtoRequest.converteProdutoRequestParaProduto(categoriaRepository); 
+	produto.setUsuario(usuario); 
+	produtoRepository.save(produto); 
+	return ResponseEntity.ok(new ProdutoResponse(produto)); 
+	}
+
+⦁	Outra alternativa é não ter o parâmetro Usuario e nem a anotação @AuthenticationPrincipal  e colocar o seguinte trecho no corpo do método:
+
+	Authentication authentication = (Authentication) 	SecurityContextHolder.getContext().getAuthentication(); 
+	String login = authentication.getName(); 
+	Usuario usuario = usuarioRepository.findByLogin(login).get(); 
+	Produto produto = 	produtoRequest.converteProdutoRequestParaProduto(categoriaRepository); 
+	produto.setUsuario(usuario);

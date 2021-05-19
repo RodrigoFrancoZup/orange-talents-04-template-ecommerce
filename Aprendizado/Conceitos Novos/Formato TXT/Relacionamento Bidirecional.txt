@@ -1,0 +1,6 @@
+⦁	Nesse tipo de relacionamento temos que criar os objetos nos dois lados, caso nenhum dos lado já esteja criado.
+
+⦁	Por exemplo, Produto tem uma lista de Caracteristica e Caracteristica pertence a um produto e eu quero ao cadastrar o Produto cadastrar sua lista de caracteristica. Para isso dar certo temos que criar os objetos necessários nos dois lados. Há duas formas para isso:
+
+1.	Salvo o produto (sozinho),sem caracterista e depois adiciono esse produto a todas as caracteristas e salvo-as;
+2.	Outro jeito é usar Cascade.persist na classe Produto em cima do atributo List<Caracteristica>, mas isso só garante que ao salvar o Produto as caracteristicas também serão salvas, ou seja, o produto_id na classe/tabela de caracteristica fica null (não faz o relacionamento). Para criar esse relacionamento eu utilizo o Cascade.persist, mas eu dou um jeito de criar o objeto Caracteristica (new Caracteristica) dentro da classe de produto, pois assim eu posso passar pra ele o (this -> que nesse caso será o objeto Produto). É importante o construtor de caracteristica exigir o objeto Produto, já o consturtor de produto eu deixo recebendo CaracteristicaDto para depois eu fazer a conversão, já que será também na conversão que vai ocorrer o relacionamento.

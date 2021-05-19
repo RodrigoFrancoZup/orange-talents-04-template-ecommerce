@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "08038c34-3f23-46ec-ba7a-50968887ba7a",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"rodrigo@gmail.com\",\r\n    \"senha\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"rodrigo@gmail.com\",\r\n    \"senha\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuario",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/categoria",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"teclado\",\r\n    \"idCategoriaMae\": \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/categoria",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIwMzAzMzA5LCJleHAiOjE2MjAzODk3MDl9.bvoZ7tkDC7oSRUTXtVDIW6AUFDJBXKkZd-8Mtt7DyCw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\" : \"TV LG\",\r\n    \"valor\" :\"1000.00\",\r\n    \"quantidade\" : \"10\",\r\n    \"caracteristicas\" : [\r\n        {\r\n            \"nome\" : \"Polegadas\",\r\n            \"descricao\" : \"52\"\r\n        },\r\n        {\r\n            \"nome\" : \"Cor\",\r\n            \"descricao\" : \"Cinza\"\r\n        },\r\n        {\r\n            \"nome\" : \"Garantia\",\r\n            \"descricao\" : \"3 anos\"\r\n        }\r\n    ],\r\n    \"descricao\" : \"Uma otima TV\",\r\n    \"idCategoria\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/opiniao/produto/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIwNDk1NTY0LCJleHAiOjE2MjA1ODE5NjR9.1zk2J-42ovGLTXuTRZ_QSXudnfJqNyYcNhcq1kOI7bM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nota\":\"1\",\r\n    \"titulo\":\"titulo2\",\r\n    \"descricao\":\"desc3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/opiniao/produto/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"opiniao",
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/pergunta/produto/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIwNDk1NTY0LCJleHAiOjE2MjA1ODE5NjR9.1zk2J-42ovGLTXuTRZ_QSXudnfJqNyYcNhcq1kOI7bM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Titulo pergunta\",\r\n    \"conteudo\" : \"A minha pergunta é...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pergunta/produto/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pergunta",
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/compra",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIxMTAyNzEzLCJleHAiOjE2MjExODkxMTN9.aacEeDhc4gxtvrJONNtEVOto7R-fmi94HnUpa_osL80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idProduto\":\"8\",\r\n    \"quantidade\" : \"1\",\r\n    \"formaDePagamento\":\"Paypal\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/compra",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"compra"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/retorno-paypal/13",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIxMTAyNzEzLCJleHAiOjE2MjExODkxMTN9.aacEeDhc4gxtvrJONNtEVOto7R-fmi94HnUpa_osL80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"status\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retorno-paypal/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retorno-paypal",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/retorno-pagseguro/15",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIxMTAyNzEzLCJleHAiOjE2MjExODkxMTN9.aacEeDhc4gxtvrJONNtEVOto7R-fmi94HnUpa_osL80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"status\":\"SUCESSO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retorno-pagseguro/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retorno-pagseguro",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/produto/1/adicionaImagem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIwNDgwNzAxLCJleHAiOjE2MjA1NjcxMDF9.nn-zOGKnsludVzm0r4qB032C83HwW9gqScL0wsNtAX8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "imagens",
+							"type": "file",
+							"src": "/C:/Users/Rodrigo/Pictures/Imagens de Rodrigo/wallpaper2.png"
+						},
+						{
+							"key": "imagens",
+							"type": "file",
+							"src": "/C:/Users/Rodrigo/Desktop/cbcvb.bmp"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/1/adicionaImagem",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"1",
+						"adicionaImagem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/produto/1/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRGVzYWZpbyBFY29tbWVyY2UgT3JhbmdlIFRhbGVudHMiLCJzdWIiOiIxIiwiaWF0IjoxNjIwNTg2NDE3LCJleHAiOjE2MjA2NzI4MTd9.n7SvgpN34qEoBn1bxrLWKgpUnASoOMVDn5uBDD5r3uc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produto/1/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

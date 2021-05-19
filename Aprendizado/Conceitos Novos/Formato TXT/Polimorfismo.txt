@@ -1,0 +1,7 @@
+⦁	A minha modelagem entre Compra e Pagamento ficou 1:1, mas o Alberto sugeriu fazer 1:N, e ele ainda fez o cadastro de pagamento no lado 1, ou seja, dentro da classe de compra, para isso ele pegava o objeto pagamento e adicionava na lista do objeto Compra. Fazendo desse jeito ele conseguiu demonstrar o Polimorfismo. Para isso não podemos escquercer de usar o CascadeType.merge em cima do atributo List<Pagamento> pagamentos;
+
+⦁	Ele usou Polimorfismo, pois na verdade o método que adicionava um Pagamento na lista do objeto Compra não recebia o objeto de tipo Pagamento, ele recebia primeiro a representação, ele recebia um PagamentoResponsePaypal ou PagamentoResponsePagseguro, agora o método adicionaPagamento() vai receber um objeto do tipo GatewaysPagamento (interface). E agora as classes  PagamentoResponsePaypal e PagamentoResponsePagseguro passam a implementar a interface GatewaysPagamento;
+
+⦁	A interface GatewaysPagamento terá o metodo conversaoParaModel(), pois esse é o ponto em comum entre as classes PagamentoResponsePaypal  e PagamentoResponsePagseguro. Cada classe vai implementar a interface, mas o seu método será do seu jeito;
+
+⦁	Dentro do método adicionaPagamento() ele vai transformar o objeto de representação (DTO) no objeto do tipo Pagamento real, pode ser PagamentoResponsePaypal ou PagamentoResponsePagseguro que vamos conseguir criar um Pagamento, e depois disso podemos adicioná-lo na lista.

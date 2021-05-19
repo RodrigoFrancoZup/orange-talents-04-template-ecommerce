@@ -1,0 +1,23 @@
+⦁	Para detalhar um produto o mesmo prcisará de diversas listas, pois um produto tem diversas perguntas, diversas avaliacoes, etc.. O Mentor fez esse mapemanto utilizando Functions do java, algo que eu devo estudar para entender. Exemplo:
+
+Na classe Produto:
+
+public <T> Set<T> mapeiaCaracteristicas(
+			Function<CaracteristicaProduto, T> funcaoMapeadora) {
+		return this.caracteristicas.stream().map(funcaoMapeadora)
+				.collect(Collectors.toSet());
+	}
+
+	public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaoMapeadora) {
+		return this.imagens.stream().map(funcaoMapeadora)
+				.collect(Collectors.toSet());
+	}
+	
+	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
+		return this.perguntas.stream().map(funcaoMapeadora)
+				.collect(Collectors.toCollection(TreeSet :: new));
+
+
+Na classe ProdutoResponse ele chama os métodos citados dessa forma:
+
+this.perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());

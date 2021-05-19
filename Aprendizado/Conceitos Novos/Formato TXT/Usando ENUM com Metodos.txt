@@ -1,0 +1,27 @@
+⦁	Podemos criar um método abstrato em um Enum. E para cada valor possível de Enum criar uma implementação desse método. Fiz isso no Enum FormaDePagamento, pois cada opção (valor disponível) o retorno da URL do Gateway de pagamento seria um. Enum ficou assim:
+
+public enum FormaDePagamento {
+
+    Paypal {
+        @Override
+        public String direcionaParaGateway(UriComponentsBuilder uriBuilder, Compra compra) {
+            String retorno = uriBuilder.path("/retorno-paypal/{id}").buildAndExpand(compra.getId()).toString();
+            return "paypal.com/" + compra.getId() + "?redirectUrl=" + retorno;
+        }
+    },
+
+    Pagseguro {
+        @Override
+        public String direcionaParaGateway(UriComponentsBuilder uriBuilder, Compra compra) {
+            String retorno = uriBuilder.path("/retorno-pagseguro/{id}").buildAndExpand(compra.getId()).toString();
+            return "pagseguro.com/" + compra.getId() + "?redirectUrl=" + retorno;
+        }
+    };
+
+    public abstract String direcionaParaGateway(UriComponentsBuilder uriBuilder, Compra compra);
+}
+
+⦁	A chamada desse enum ficou assim:
+String url = compra.getFormaDePagamento().direcionaParaGateway(uriBuilder, compra);
+
+
